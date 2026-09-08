@@ -13,7 +13,7 @@ namespace BogsyVideoStore.Data
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
             // Auto-create database and apply migrations
-            context.Database.Migrate();
+            await context.Database.MigrateAsync();
 
             // 1. Seed Default Admin Account
             var adminEmail = "admin@bvs.com";
