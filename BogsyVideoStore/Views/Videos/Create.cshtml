@@ -1,0 +1,42 @@
+﻿@model BogsyVideoStore.Models.Video
+@{
+    ViewData["Title"] = "Add Video";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="card-title m-0">Add New Video</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Category" class="form-label"></label>
+                        <select asp-for="Category" asp-items="Html.GetEnumSelectList<BogsyVideoStore.Models.VideoCategory>()" class="form-select">
+                        </select>
+                        <span class="form-text text-muted">VCD = ₱25 | DVD = ₱50</span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="MaxRentalDays" class="form-label"></label>
+                        <input asp-for="MaxRentalDays" class="form-control" type="number" min="1" max="3" />
+                        <span asp-validation-for="MaxRentalDays" class="text-danger"></span>
+                        <small class="form-text text-muted">Allowed range: 1 to 3 days.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="TotalCopies" class="form-label"></label>
+                        <input asp-for="TotalCopies" class="form-control" type="number" min="1" />
+                        <span asp-validation-for="TotalCopies" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success">Save Video</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

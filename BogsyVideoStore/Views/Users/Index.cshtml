@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    ViewData["Title"] = "User Directory";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>🔐 Registered User Accounts</h2>
+    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary">+ Register New User</a>
+</div>
+
+<table class="table table-bordered table-striped shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Email / Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>

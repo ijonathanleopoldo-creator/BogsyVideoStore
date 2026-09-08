@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Rent Video";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h4 class="card-title m-0">Rent Video</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Select Customer</label>
+                        <select name="CustomerId" class="form-select" asp-items="ViewBag.CustomerId" required>
+                            <option value="">-- Select Customer --</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Select Video</label>
+                        <select name="VideoId" class="form-select" asp-items="ViewBag.VideoId" required>
+                            <option value="">-- Select Video --</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Rental Duration (Days)</label>
+                        <select name="DaysToRent" class="form-select" required>
+                            <option value="1">1 Day</option>
+                            <option value="2">2 Days</option>
+                            <option value="3" selected>3 Days</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Issue Rental</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BogsyVideoStore.Models.Customer>
+@{
+    ViewData["Title"] = "Customer Library";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>👥 Customer Library</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Add New Customer</a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<table class="table table-bordered table-hover shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Full Name</th>
+            <th>Contact Number</th>
+            <th>Address</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.ContactNumber</td>
+                <td>@item.Address</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

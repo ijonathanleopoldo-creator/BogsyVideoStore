@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BogsyVideoStore.Models.Rental>
+@{
+    ViewData["Title"] = "Rental Transactions";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>🎟️ Rental Transactions</h2>
+    <a asp-action="Create" class="btn btn-success btn-lg">+ Rent Video</a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<table class="table table-hover table-striped shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Customer</th>
+            <th>Video Title</th>
+            <th>Category</th>
+            <th>Rent Date</th>
+            <th>Due Date</th>
+            <th>Rental Fee</th>
+            <th>Status</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            bool isOverdue = !item.IsReturned && DateTime.Today > item.DueDate;
+            <tr class="@(isOverdue ? "table-danger" : "")">
+                <td>@item.Customer?.FullName</td>
+                <td class="fw-bold">@item.Video?.Title</td>
+                <td>@item.Video?.Category</td>
+                <td>@item.RentDate.ToString("MMM dd, yyyy")</td>
+                <td>@item.DueDate.ToString("MMM dd, yyyy")</td>
+                <td>₱@item.RentalFee.ToString("N2")</td>
+                <td>
+                    @if (item.IsReturned)
+                    {
+                        <span class="badge bg-secondary">Returned (@item.ReturnDate?.ToString("MMM dd"))</span>
+                    }
+                    else if (isOverdue)
+                    {
+                        <span class="badge bg-danger">OVERDUE</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                </td>
+                <td class="text-center">
+                    @if (!item.IsReturned)
+                    {
+                        <a asp-action="Return" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Return Video</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Completed</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

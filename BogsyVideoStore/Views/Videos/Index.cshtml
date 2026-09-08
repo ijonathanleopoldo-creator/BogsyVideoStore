@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BogsyVideoStore.Models.Video>
+@{
+    ViewData["Title"] = "Video Library";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>🎥 Video Library</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Add New Video</a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<table class="table table-bordered table-hover shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Rental Rate</th>
+            <th>Max Days</th>
+            <th>Total Copies</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="fw-bold">@item.Title</td>
+                <td>
+                    <span class="badge @(item.Category == BogsyVideoStore.Models.VideoCategory.VCD ? "bg-info" : "bg-danger")">
+                        @item.Category
+                    </span>
+                </td>
+                <td>₱@item.RentalPrice.ToString("N2")</td>
+                <td>@item.MaxRentalDays Day(s)</td>
+                <td>@item.TotalCopies</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+﻿@model BogsyVideoStore.Models.Rental
+@{ ViewData["Title"] = "Return Video"; }
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="card-title m-0">Process Video Return</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">Customer:</dt>
+                    <dd class="col-sm-8 fw-bold">@Model.Customer?.FullName</dd>
+
+                    <dt class="col-sm-4">Video Title:</dt>
+                    <dd class="col-sm-8 fw-bold">@Model.Video?.Title (@Model.Video?.Category)</dd>
+
+                    <dt class="col-sm-4">Rent Date:</dt>
+                    <dd class="col-sm-8">@Model.RentDate.ToString("MMM dd, yyyy")</dd>
+
+                    <dt class="col-sm-4">Due Date:</dt>
+                    <dd class="col-sm-8">@Model.DueDate.ToString("MMM dd, yyyy")</dd>
+
+                    <dt class="col-sm-4">Return Date:</dt>
+                    <dd class="col-sm-8">@DateTime.Today.ToString("MMM dd, yyyy")</dd>
+
+                    <dt class="col-sm-4">Late Fee Due:</dt>
+                    <dd class="col-sm-8 text-danger fw-bold fs-5">
+                        ₱@Model.LateFee.ToString("N2")
+                        @if (Model.LateFee > 0)
+                        {
+                            <span class="fs-6 fw-normal">(Overdue by @((DateTime.Today - Model.DueDate.Date).Days) days ₱5/day)</span>
+                        }
+                    </dd>
+                </dl>
+
+                <form asp-action="ProcessReturn">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Confirm Return & Collect Payment</button>
+                    <a asp-action="Index" class="btn btn-link text-center w-100 mt-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

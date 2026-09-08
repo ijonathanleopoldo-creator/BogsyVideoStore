@@ -20,3 +20,28 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar-logo {
+    height: 60px; /* Increases size to fill navbar height */
+    width: 60px; /* Must match height for a perfect circle */
+    border-radius: 50%; /* Crops the square box into a circle */
+    object-fit: cover; /* Prevents image distortion/stretching */
+    transition: transform 0.2s ease;
+}
+
+/* Reduces brand padding so the larger circular logo fits cleanly */
+.navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+}}
+
+/* IF your navbar is white/light and the JPEG has a white box background:
+   This blends the white background of the JPEG seamlessly into the navbar */
+.bg-white .navbar-logo,
+.navbar-light .navbar-logo {
+    mix-blend-mode: multiply;
+}
+
+.navbar-brand:hover .navbar-logo {
+    transform: scale(1.05);
+}

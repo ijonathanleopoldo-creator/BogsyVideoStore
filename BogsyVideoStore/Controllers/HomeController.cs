@@ -15,9 +15,22 @@ namespace BogsyVideoStore.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            // If user is logged in, redirect directly to the main BVS module
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Rentals");
+            }
+
+            // If unauthenticated, redirect directly to ASP.NET Core Identity Login
+            return RedirectToPage("/Account/Login", new { area = "Identity" });
         }
 
+        /*
+        public IActionResult Index()
+        {
+            return View();
+        }
+        */
         public IActionResult Privacy()
         {
             return View();
